@@ -1,4 +1,4 @@
-name: Build and push
+name: Build dbt docs
 
 on: workflow_dispatch
 
