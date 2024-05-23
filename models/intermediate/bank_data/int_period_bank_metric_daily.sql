@@ -19,5 +19,3 @@ from
 group by
     txn_date
 order by txn_date desc
-
--- hoa tesst

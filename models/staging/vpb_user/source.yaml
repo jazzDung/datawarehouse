@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: vpb_user
+    database: postgres  
+    schema: vpb_user
+    tables:
+      - name: account
+        description: ''
+      - name: customer
+        description: ''

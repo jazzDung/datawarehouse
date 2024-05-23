@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: vpb_savings
+    database: postgres  
+    schema: vpb_savings  
+    tables:
+      - name: savings_product
+        description: ''
+      - name: savings_account
+        description: ''
+      - name: savings_account_transaction
+        description: ''
