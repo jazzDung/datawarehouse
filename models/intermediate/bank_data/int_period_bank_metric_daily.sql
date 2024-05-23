@@ -15,7 +15,7 @@ select
     , count(distinct customer_id) as daily_active_customer_count
     , round(avg(balance), 2) as avg_balance
 from
-    {{ ref('stg_bank_data__transactions') }}
+    {{ ref('base_vpb_balance_transaction') }}
 group by
     txn_date
 order by txn_date desc
