@@ -1,3 +1,5 @@
+/* mô tả:
+ */
 {{
     config(
         materialized = 'view',
@@ -11,11 +13,8 @@
 
 select
     txn_time::date as txn_date
-    , sum(transaction_amount) as transaction_amount
-    , count(distinct customer_id) as daily_active_customer_count
-    , round(avg(balance), 2) as avg_balance
+    , sum(amount) as transaction_amount
 from
-    {{ ref('base_vpb_balance_transaction') }}
-group by
-    txn_date
-order by txn_date desc
+  {{ ref('stg_vpb_balance_transaction') }}
+group by 1
+order by 1 desc
