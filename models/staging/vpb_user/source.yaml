@@ -6,6 +6,26 @@ sources:
     schema: vpb_user
     tables:
       - name: account
-        description: ''
+        description: Một dòng là thông tin tiểu khoản của khách hàng
+        columns:
+          - name: account_number
+            description: Số tài khoản của khách hàng
+            tests:
+              - not_null
+              - unique
+          - name: pin
+            description: mã pin của tài khoản
+            tests:
+              - not_null
       - name: customer
-        description: ''
+        description: Một dòng là thông tin một khách hàng
+        columns:
+          - name: identity_id
+            description: Mã
+            tests:
+              - not_null
+              - unique
+          - name: email
+            description: Emmail của Khách hàng
+          - name: phone
+            description: Số điện thoại của khách hàng

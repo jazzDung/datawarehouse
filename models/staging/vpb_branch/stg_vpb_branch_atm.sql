@@ -13,7 +13,7 @@
 }}
 
 with source as (
-      select * from {{ source('vpb_branch', 'vpb_branch_atm') }}
+      select * from {{ source('vpb_branch', 'atm') }}
 ),
 
 renamed as (
@@ -28,8 +28,8 @@ renamed as (
         {{ adapter.quote("is_household") }}::boolean ,
         {{ adapter.quote("is_sme") }}::boolean ,
         {{ adapter.quote("address") }}::text,
-        {{ adapter.quote("latitude") }}::float,
-        {{ adapter.quote("longitude") }}::float,
+        {{ adapter.quote("latitude") }}, ---  16,817521 Lỗi
+        {{ adapter.quote("longitude") }},
         {{ adapter.quote("phone_number") }}::text
 
     from source

@@ -12,7 +12,7 @@
 }}
 
 with source as (
-      select * from {{ source('vpb_loan','vpb_loan_loan_payment') }}
+      select * from {{ source('vpb_loan','loan_payment') }}
 ),
 
 renamed as (

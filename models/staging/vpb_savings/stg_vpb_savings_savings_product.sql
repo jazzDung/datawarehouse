@@ -6,9 +6,7 @@
     unique_key = 'product_id',
     sort = [
         'product_id',
-        'deposit_amount',
-        'status',
-        'seller_id'
+        'created_at'
     ],
     sort_type = 'interleaved'
     )
@@ -30,7 +28,7 @@ renamed as (
         {{ adapter.quote("interest_payment") }}::text ,
         {{ adapter.quote("promotion") }}::text ,
         {{ adapter.quote("created_at") }}::timestamp ,
-        {{ adapter.quote("updated_at") }}::timestamp
+        {{ adapter.quote("updated_at") }}  --- cột này đang bị null nên tạm thời không check data_type
 
     from source
 )

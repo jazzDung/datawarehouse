@@ -11,7 +11,7 @@
 }}
 
 with source as (
-      select * from {{ source('vpb_branch', 'vpb_branch_branch') }}
+      select * from {{ source('vpb_branch', 'branch') }}
 ),
 
 renamed as (

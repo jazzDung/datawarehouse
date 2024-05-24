@@ -13,7 +13,7 @@
 }}
 
 with source as (
-      select * from {{ source('vpb_loan','vpb_loan_loan') }}
+      select * from {{ source('vpb_loan','loan') }}
 ),
 
 renamed as (
@@ -24,10 +24,10 @@ renamed as (
         {{ adapter.quote("loan_type") }}::text ,
         {{ adapter.quote("loan_amount") }}::float ,
         {{ adapter.quote("interest_rate") }}::float ,
-        {{ adapter.quote("term") }}::int ,
-        {{ adapter.quote("created_date") }}::date ,
-        {{ adapter.quote("start_date") }}::date ,
-        {{ adapter.quote("end_date") }}::date ,
+        {{ adapter.quote("term") }}::int as term,
+        created_date,
+        start_date,
+        end_date,
         {{ adapter.quote("status") }}::text,
         {{ adapter.quote("due_principal") }}::decimal ,
         {{ adapter.quote("due_interest") }}::decimal ,
@@ -43,12 +43,21 @@ renamed as (
         {{ adapter.quote("unpaid_principal") }}::decimal ,
         {{ adapter.quote("unpaid_interest") }}::decimal ,
         {{ adapter.quote("description") }}::text ,
-        {{ adapter.quote("created_time") }}::timestamp ,
-        {{ adapter.quote("release_time") }}::timestamp ,
-        {{ adapter.quote("overdue_date") }}::date ,
-        {{ adapter.quote("disbursement_date") }}::date ,
-        {{ adapter.quote("modified_time") }}::timestamp
-
+        created_time,
+        release_time, --- Do có value null dạng chữ
+        overdue_date, --- Do có value null dạng chữ
+        disbursement_date, --- Do có value null dạng chữ
+        modified_time--- Do có value null dạng chữ
+    /*
+        (case when created_date = 'NULL' then null  else created_date::date end) as created_date ,
+        (case when start_date = 'NULL'  then null else start_date::date end) as start_date,
+        (case when end_date = 'NULL'  then null else end_date::date end) as end_date, --- Do có value null dạng chữ
+        (case when created_time = 'NULL' then null else created_time end) as  created_time,
+        (case when release_time = 'NULL' then null else release_time end) as  release_time, --- Do có value null dạng chữ
+        (case when overdue_date = 'NULL' then null else overdue_date end)  as overdue_date, --- Do có value null dạng chữ
+        (case when disbursement_date = 'NULL' then null else disbursement_date end) as disbursement_date, --- Do có value null dạng chữ
+        (case when modified_time = 'NULL' then null else modified_time end) as  modified_time--- Do có value null dạng chữ
+     */
     from source
 )
 select * from renamed
