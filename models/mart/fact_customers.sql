@@ -14,4 +14,4 @@
 select
     *
 from
-    {{ ref('int_dim_custormers') }} as ac
+    {{ ref('int_fact_customers') }} as ac

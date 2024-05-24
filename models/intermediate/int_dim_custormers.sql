@@ -5,6 +5,7 @@
         materialized = 'table',
         unique_key = 'customer_id',
         sort = [
+            'customer_id',
             'identity_id',
             'customer_register_date'
         ]
