@@ -2,21 +2,6 @@
  */
 {{
     config(
-    materialized = 'increa',
-    unique_key = 'unique_id',
-    sort = [
-        'account_id',
-        'custody_code',
-        'investor_id',
-        'gen_egg_date',
-        'account_cb_group',
-        'account_careby_id'
-    ],
-    sort_type = 'interleaved'
-    )
-}}
-{{
-    config(
     materialized = 'view',
     unique_key = 'savings_id',
     sort = [
