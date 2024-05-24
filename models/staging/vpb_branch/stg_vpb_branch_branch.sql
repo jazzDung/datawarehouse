@@ -1,12 +1,11 @@
 {{
     config(
-    materialized = 'incremental',
+    materialized = 'view',
     unique_key = 'branch_id',
     sort = [
         'branch_id',
         'branch_name'
-    ],
-    sort_type = 'interleaved'
+    ]
     )
 }}
 
@@ -16,11 +15,11 @@ with source as (
 
 renamed as (
     select
-        {{ adapter.quote("region") }}::text ,
-        {{ adapter.quote("province") }}::text ,
-        {{ adapter.quote("branch_name") }}::text ,
-        {{ adapter.quote("branch_id") }}::text ,
-        {{ adapter.quote("address") }}::text
+        {{ adapter.quote("region") }}::text as branch_region,
+        {{ adapter.quote("province") }}::text as branch_province,
+        {{ adapter.quote("branch_name") }}::text  as branch_name,
+        {{ adapter.quote("branch_id") }}::text as branch_id,
+        {{ adapter.quote("address") }}::text as branch_address
 
     from source
 )

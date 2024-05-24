@@ -5,20 +5,20 @@ with source as (
 ),
 renamed as (
     select
-        {{ adapter.quote("customer_id") }},
-        {{ adapter.quote("identity_id") }}, -- Cột thông tin nhạy cảm
-        {{ adapter.quote("last_name") }},
-        {{ adapter.quote("first_name") }},
-        {{ adapter.quote("date_of_birth") }},
-        {{ adapter.quote("age") }},
-        {{ adapter.quote("gender") }},
-        {{ adapter.quote("address") }}, -- Cột thông tin nhạy cảm
-        {{ adapter.quote("status") }},
-        {{ adapter.quote("hometown") }},
-        {{ adapter.quote("phone") }}, -- Cột thông tin nhạy cảm
-        {{ adapter.quote("email") }}, -- Cột thông tin nhạy cảm
-        {{ adapter.quote("register_date") }},
-        {{ adapter.quote("customer_type") }}
+        {{ adapter.quote("customer_id") }}::text ,
+        {{ adapter.quote("identity_id") }}::text, -- Cột thông tin nhạy cảm
+        {{ adapter.quote("last_name") }}::text,
+        {{ adapter.quote("first_name") }}::text,
+        {{ adapter.quote("date_of_birth") }}::text,
+        {{ adapter.quote("age") }}::int ,
+        {{ adapter.quote("gender") }}::text,
+        {{ adapter.quote("address") }}::text, -- Cột thông tin nhạy cảm
+        {{ adapter.quote("status") }}::text,
+        {{ adapter.quote("hometown") }}::text,
+        {{ adapter.quote("phone") }}::text, -- Cột thông tin nhạy cảm
+        {{ adapter.quote("email") }}::text, -- Cột thông tin nhạy cảm
+        {{ adapter.quote("register_date") }}::date as register_date ,
+        {{ adapter.quote("customer_type") }}::text
 
     from source
 )

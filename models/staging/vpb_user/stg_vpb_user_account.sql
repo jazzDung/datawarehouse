@@ -11,10 +11,10 @@ renamed as (
         {{ adapter.quote("account_type") }}::text,
         {{ adapter.quote("pin") }}, --- Thông tin nhạy cảm
         {{ adapter.quote("cvv") }},
-        {{ adapter.quote("date_opened") }},
-        {{ adapter.quote("date_closed") }},
-        {{ adapter.quote("account_status") }},
-        {{ adapter.quote("branch") }}
+        {{ adapter.quote("date_opened") }}::date as opened_date,
+        {{ adapter.quote("date_closed") }} as closed_date,
+        {{ adapter.quote("account_status") }}::text as account_status,
+        {{ adapter.quote("branch") }}::text as branch_id
 
     from source
 )
