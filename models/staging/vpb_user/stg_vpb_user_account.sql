@@ -1,6 +1,6 @@
 with source as (
       select
-          *
+           {{ sensitive_columns_sources('vpb_user', 'account') }}
       from {{ source('vpb_user', 'account') }}
 ),
 renamed as (

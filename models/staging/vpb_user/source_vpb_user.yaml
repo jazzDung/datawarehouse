@@ -13,10 +13,14 @@ sources:
             tests:
               - not_null
               - unique
+            meta:
+              sensitive: true
           - name: pin
             description: mã pin của tài khoản
             tests:
               - not_null
+            meta:
+              sensitive: true
       - name: customer
         description: Một dòng là thông tin một khách hàng
         columns:
@@ -28,6 +32,10 @@ sources:
             meta:
               sensitive: true
           - name: email
-            description: Emmail của Khách hàng
+            description: Email của Khách hàng
+            meta:
+              sensitive: true
           - name: phone
             description: Số điện thoại của khách hàng
+            meta:
+              sensitive: true

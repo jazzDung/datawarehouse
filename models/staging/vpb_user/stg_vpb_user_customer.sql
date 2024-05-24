@@ -5,7 +5,8 @@
 ), #}
 
 with source as (
-    select {{ sensitive_columns_sources('vpb_user', 'customer') }}
+    select
+        {{ sensitive_columns_sources('vpb_user', 'customer') }}
     from {{ source('vpb_user', 'customer') }}
 ),
 renamed as (
