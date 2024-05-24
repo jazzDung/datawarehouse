@@ -25,6 +25,8 @@ sources:
             tests:
               - not_null
               - unique
+            meta:
+              sensitive: true
           - name: email
             description: Emmail của Khách hàng
           - name: phone

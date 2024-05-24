@@ -1,4 +1,4 @@
-{% macro get_meta_columns_sources(schema_name, model_name, meta_key=none, node_type='source', project='data_warehouse') %}
+{% macro get_meta_columns_sources(schema_name, model_name, meta_key=none, node_type='source', project='customer360') %}
 
 	{% if execute %}
     

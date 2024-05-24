@@ -1,7 +1,12 @@
-with source as (
+{# with source as (
       select
             *
       from {{ source('vpb_user', 'customer') }}
+), #}
+
+with source as (
+    select {{ sensitive_columns_sources('vpb_user', 'customer') }}
+    from {{ source('vpb_user', 'customer') }}
 ),
 renamed as (
     select
