@@ -4,10 +4,12 @@
 {{
     config(
     materialized = 'table',
-    unique_key = 'txn_date',
+    unique_key = 'savings_id',
     sort = [
-        'txn_date',
-        'transaction_amount'
+        'savings_id',
+        'account_id',
+        'created_at',
+        'customer_id'
     ]
     )
 }}
