@@ -1,11 +1,11 @@
 {{
     config(
-    materialized = 'incremental',
+    materialized = 'view',
     unique_key = 'loan_id',
     sort = [
         'loan_id',
         'loan_type',
-        'status',
+        'created_date',
         'description'
     ],
     sort_type = 'interleaved'
@@ -13,7 +13,9 @@
 }}
 
 with source as (
-      select * from {{ source('vpb_loan','loan') }}
+    select
+        *
+    from {{ source('vpb_loan','loan') }}
 ),
 
 renamed as (
@@ -25,7 +27,7 @@ renamed as (
         {{ adapter.quote("loan_amount") }}::float ,
         {{ adapter.quote("interest_rate") }}::float ,
         {{ adapter.quote("term") }}::int as term,
-        created_date,
+        created_date::date,
         start_date,
         end_date,
         {{ adapter.quote("status") }}::text,
