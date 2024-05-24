@@ -1,35 +1,36 @@
 /* Mô tả: Một dòng là 1 chi nhánh VP bank
  */
-
 {{
     config(
-        materialized = 'view',
-        unique_key = 'atm_id',
-        sort = [
-            'atm_id',
-            'phone_number'
-        ]
+    materialized = 'incremental',
+    unique_key = 'atm_id',
+    sort = [
+        'atm_id',
+        'vpp_branch'
+    ],
+    sort_type = 'interleaved'
     )
 }}
 
 with source as (
-      select * from {{ source('vpb_branch', 'atm') }}
+      select * from {{ source('vpb_branch', 'vpb_branch_atm') }}
 ),
+
 renamed as (
     select
         {{ adapter.quote("atm_id") }}::text ,
         {{ adapter.quote("name") }}::text ,
-        {{ adapter.quote("is_branch") }}::boolean ,
-        {{ adapter.quote("is_atm") }},
-        {{ adapter.quote("is_cdm") }},
-        {{ adapter.quote("is_atm_247") }},
-        {{ adapter.quote("atm_247_label") }},
-        {{ adapter.quote("is_household") }},
-        {{ adapter.quote("is_sme") }},
-        {{ adapter.quote("address") }},
-        {{ adapter.quote("latitude") }},
-        {{ adapter.quote("longitude") }},
-        {{ adapter.quote("phone_number") }}
+        {{ adapter.quote("is_branch") }}::boolean as vpb_branch ,
+        {{ adapter.quote("is_atm") }}::boolean ,
+        {{ adapter.quote("is_cdm") }}::boolean ,
+        {{ adapter.quote("is_atm_247") }}::boolean ,
+        {{ adapter.quote("atm_247_label") }}::text ,
+        {{ adapter.quote("is_household") }}::boolean ,
+        {{ adapter.quote("is_sme") }}::boolean ,
+        {{ adapter.quote("address") }}::text,
+        {{ adapter.quote("latitude") }}::float,
+        {{ adapter.quote("longitude") }}::float,
+        {{ adapter.quote("phone_number") }}::text
 
     from source
 )
