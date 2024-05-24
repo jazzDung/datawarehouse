@@ -18,6 +18,6 @@
 with source as (
     select
         *
-    from {{ ref('int_fact_savings_accounts') }}
+    from {{ ref('int_fact_savings') }}
 )
     select * from source

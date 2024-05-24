@@ -17,14 +17,10 @@ with source as (
     select
         *
     from {{ source('vpb_savings', 'savings_account_transaction') }}
-    where 1 = 1
-      {% if is_incremental() %}
-       and transaction_date >= CURRENT_DATE - INTERVAL '90 day'
-      {% endif %}
 ),
 renamed as (
     select
-        {{ adapter.quote("transaction_id") }}::text ,
+        {{ adapter.quote("transaction_id") }}::text  ,
         {{ adapter.quote("savings_account_id") }}::text as savings_id ,
         {{ adapter.quote("transaction_date") }}::date ,
         {{ adapter.quote("transaction_type") }}::text ,

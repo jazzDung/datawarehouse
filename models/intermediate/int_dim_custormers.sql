@@ -2,11 +2,11 @@
  */
 {{
     config(
-        materialized = 'view',
+        materialized = 'table',
         unique_key = 'customer_id',
         sort = [
             'identity_id',
-            'register_date'
+            'customer_register_date'
         ]
     )
 }}

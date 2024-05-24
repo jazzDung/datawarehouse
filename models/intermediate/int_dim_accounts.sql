@@ -6,7 +6,7 @@
         unique_key = 'account_id',
         sort = [
             'account_id',
-            'date_opened'
+            'account_opened_date'
         ]
     )
 }}
@@ -18,7 +18,7 @@ with account_dedup as ( --- Xử lý dup số tiểu khoản trong TH dữ liệ
         account_type,
         pin , --- Thông tin nhạy cảm
         cvv ,
-        opened_date,
+        opened_date as account_opened_date,
         closed_date ,
         account_status,
         branch_id

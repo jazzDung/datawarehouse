@@ -24,7 +24,6 @@ renamed as (
         {{ adapter.quote("savings_account_id") }}::text as savings_id,
         {{ adapter.quote("product_id") }}::text ,
         {{ adapter.quote("customer_id") }}::text ,
-        {{ adapter.quote("account_number") }}::text , --- thông tin nhạy cảm
         {{ adapter.quote("deposit_amount") }}::float ,
         {{ adapter.quote("opening_date") }}::date ,
         {{ adapter.quote("maturity_date") }}::date ,

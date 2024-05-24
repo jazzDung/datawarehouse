@@ -1,5 +1,20 @@
-/* Mô tả: Một dòng là 1 thông tin về khoản gửi tiết kiệm của KH
+/* Mô tả: Một dòng là 1 thông tin về khoản gửi tiết kiệm của KH 1 một ngày
  */
+{{
+    config(
+    materialized = 'increa',
+    unique_key = 'unique_id',
+    sort = [
+        'account_id',
+        'custody_code',
+        'investor_id',
+        'gen_egg_date',
+        'account_cb_group',
+        'account_careby_id'
+    ],
+    sort_type = 'interleaved'
+    )
+}}
 {{
     config(
     materialized = 'view',
@@ -26,8 +41,9 @@ select
     pr.interest_rate,
     pr.promotion,
     ac.customer_id,
-    dc.account_id,
-    ac.account_number,
+    dc.full_name,
+    dc.age,
+    dc.gender,
     ac.deposit_amount ,
     ac.opening_date,
     ac.maturity_date,
@@ -35,5 +51,5 @@ select
     ac.created_at,
     ac.updated_at
 from source ac
-left join {{ ref('int_dim_accounts') }} as dc  on ac.account_number = dc.account_number
+left join {{ ref('int_dim_custormers') }} as dc  on ac.customer_id = dc.customer_id
 left join {{ ref('stg_vpb_savings_savings_product') }} as  pr on  pr.product_id = ac.product_id
