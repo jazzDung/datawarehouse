@@ -16,6 +16,6 @@
 with source as (
     select
         *
-    from   {{ ref('int_period_bank_metric_daily') }}
+    from {{ ref('int_fact_savings_accounts') }}
 )
     select * from source

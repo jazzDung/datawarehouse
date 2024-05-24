@@ -2,13 +2,12 @@
  */
 {{
     config(
-    materialized = 'incremental',
+    materialized = 'view',
     unique_key = 'product_id',
     sort = [
         'product_id',
         'created_at'
-    ],
-    sort_type = 'interleaved'
+    ]
     )
 }}
 

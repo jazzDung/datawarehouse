@@ -41,3 +41,6 @@ models:
       +materialized: ephemeral
     mart:
       +materialized: table
+      savings:
+        +schema: savings
+

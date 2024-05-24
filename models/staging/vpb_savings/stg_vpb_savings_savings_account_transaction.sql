@@ -2,32 +2,36 @@
  */
 {{
     config(
-    materialized = 'incremental',
-    unique_key = 'savings_account_id',
+    materialized = 'view',
+    unique_key = 'transaction_id',
     sort = [
-        'savings_account_id',
+        'transaction_id',
         'transaction_type',
         'channel',
         'description'
-    ],
-    sort_type = 'interleaved'
+    ]
     )
 }}
 
 with source as (
-      select * from {{ source('vpb_savings', 'savings_account_transaction') }}
+    select
+        *
+    from {{ source('vpb_savings', 'savings_account_transaction') }}
+    where 1 = 1
+      {% if is_incremental() %}
+       and transaction_date >= CURRENT_DATE - INTERVAL '90 day'
+      {% endif %}
 ),
-
 renamed as (
     select
         {{ adapter.quote("transaction_id") }}::text ,
-        {{ adapter.quote("savings_account_id") }}::text ,
+        {{ adapter.quote("savings_account_id") }}::text as savings_id ,
         {{ adapter.quote("transaction_date") }}::date ,
         {{ adapter.quote("transaction_type") }}::text ,
         {{ adapter.quote("transaction_amount") }}::float ,
         {{ adapter.quote("balance_after") }}::float ,
-        {{ adapter.quote("created_at") }}::timestamp ,
-        {{ adapter.quote("updated_at") }}::timestamp ,
+        {{ adapter.quote("created_at") }}:text  ,
+        {{ adapter.quote("updated_at") }}::text ,  ---Do dataset đang bị null dữ liệu
         {{ adapter.quote("description") }}::text ,
         {{ adapter.quote("teller_id") }}::text ,
         {{ adapter.quote("channel") }}::text
