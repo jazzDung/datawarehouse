@@ -30,7 +30,7 @@ loan as ( --- Tính toán các metric khi KH dùng sản phẩm tín dụng
     from {{ ref('int_fact_loans') }} as ac
     {{ dbt_utils.group_by(1) }}
 ),
-saving as ( -
+saving as ( ----- Các metric KH khi dùng sản phẩm tiết kiệm
      select
          customer_id,
          count( distinct savings_id) as savings_count,
