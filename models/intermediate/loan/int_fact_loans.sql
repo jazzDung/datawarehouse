@@ -22,7 +22,12 @@ with source as (
         loan_amount,
         interest_rate,
         term,
-        created_date,
+        (case when created_date::date <= '2020-01-01' then '2024-02-01'
+            when created_date::date <= '2021-01-01' then '2024-03-01'
+            when created_date::date <= '2022-01-01' then '2024-04-01'
+            when created_date::date <= '2023-01-01' then '2024-04-16'
+            when created_date::date <= '2023-01-01' then '2024-04-22'
+        else created_date end)::date as created_date, -- tạm xử lý dataset ít thông tin
         start_date,
         end_date,
         status,
@@ -40,7 +45,6 @@ with source as (
         unpaid_principal ,
         unpaid_interest,
         description ,
-        created_time ,
         release_time ,
         overdue_date ,
         disbursement_date ,
