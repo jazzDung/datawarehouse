@@ -11,11 +11,12 @@
         ]
     )
 }}
+
 with customer as (
     select
-            *
-        from
-          {{ ref('int_dim_custormers') }} as ac
+        *
+    from
+        {{ ref('int_dim_custormers') }} as ac
     ),
 loan as ( --- Tính toán các metric khi KH dùng sản phẩm tín dụng
     select
@@ -29,7 +30,7 @@ loan as ( --- Tính toán các metric khi KH dùng sản phẩm tín dụng
     from {{ ref('int_fact_loans') }} as ac
     {{ dbt_utils.group_by(1) }}
 ),
-saving as (
+saving as ( -
      select
          customer_id,
          count( distinct savings_id) as savings_count,
@@ -37,18 +38,34 @@ saving as (
          sum(case when status = 'MATURED' then deposit_amount end )  matured_deposit_amount
     from {{ ref('int_fact_savings') }} as ac
     {{ dbt_utils.group_by(1) }}
+),
+customer_metric as (
+    select
+        ac.*,
+        loan.loan_count,
+        loan.origin_principal,
+        loan.total_interest,
+        loan.paid_interest,
+        loan.unpaid_loan_amount,
+        loan.unpaid_loan_count,
+        saving.savings_count,
+        saving.origin_deposit_amount,
+        saving.matured_deposit_amount
+    from customer as ac
+    left join loan  on loan.customer_id = ac.customer_id
+    left join saving  on saving.customer_id = ac.customer_id
+),
+customer_segment as ( --- Dài hạn sẽ dùng mô hình của DS để phân nhóm KH
+    select
+        customer_metric.*,
+        case when customer_id = 'C143' then 'Gold'
+             when customer_id = 'C157' then 'Silver'
+             when customer_id = 'C200' then 'Copper'
+             when (loan_count > 4 and origin_principal > 3000000000) or (savings_count > 3 and origin_deposit_amount > 3000000000) then 'Gold'
+             when (loan_count > 2 and origin_principal > 2000000000) or (savings_count > 3 and origin_deposit_amount > 200000000) then 'Silver'
+        else 'Copper' end customer_segment
+    from customer_metric
 )
 select
-    ac.*,
-    loan.loan_count,
-    loan.origin_principal,
-    loan.total_interest,
-    loan.paid_interest,
-    loan.unpaid_loan_amount,
-    loan.unpaid_loan_count,
-    saving.savings_count,
-    saving.origin_deposit_amount,
-    saving.matured_deposit_amount
-from customer as ac
-left join loan  on loan.customer_id = ac.customer_id
-left join saving  on saving.customer_id = ac.customer_id
+    *
+from customer_segment
