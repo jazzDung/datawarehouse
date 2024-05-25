@@ -20,8 +20,9 @@ with source as (
     select
         *
     from {{ source('vpb_balance', 'transaction') }}
+    where 1 = 1
     {% if is_incremental() %}
-    where transaction_time >= CURRENT_DATE - INTERVAL '30 day'  --- giả lập bảng transaction nang, lam incremental toi uu luong
+    and transaction_time >= CURRENT_DATE - INTERVAL '30 day'  --- giả lập bảng transaction nang, lam incremental toi uu luong
     {% endif %}
 ),
 renamed as (
