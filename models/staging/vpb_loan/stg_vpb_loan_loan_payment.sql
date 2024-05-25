@@ -17,7 +17,7 @@ with source as (
 
 renamed as (
     select
-        {{ adapter.quote("loan_payment_id") }}::text as loan_payment_id
+        {{ adapter.quote("loan_payment_id") }}::text as loan_payment_id,
         {{ adapter.quote("scheduled_payment_date") }}::date ,
         {{ adapter.quote("payment_amount") }}::decimal ,
         {{ adapter.quote("principal_amount") }}::decimal ,
