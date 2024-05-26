@@ -8,19 +8,35 @@ sources:
       - name: account
         description: Một dòng là thông tin tiểu khoản của khách hàng
         columns:
+          - name: account_id
+            description: Mã tài khoản của khách hàng, Unique ID of current bank account
+          - name: customer_id
+            description: Unique ID of a customer defined by bank system
+          - name: account_type
+            description: Bank account type
           - name: account_number
-            description: Số tài khoản của khách hàng
+            description: Unique serial number of each customer's bank account
             tests:
               - not_null
               - unique
             meta:
               sensitive: true
           - name: pin
-            description: mã pin của tài khoản
+            description: Unique personal identification number of each customer
             tests:
               - not_null
             meta:
               sensitive: true
+          - name: cvv
+            description: The 3-digit verification code proves that the person making the transaction owns the physical card
+          - name: date_opened
+            description: Bank account opening date
+          - name: date_closed
+            description: Bank account ending date (if applicable)
+          - name: account_status
+            description: Current account activity status
+          - name: branch
+            description: Bank branch that opens customer's current account
       - name: customer
         description: Một dòng là thông tin một khách hàng
         columns:
