@@ -26,7 +26,7 @@ renamed as (
         {{ adapter.quote("transaction_type") }}::text ,
         {{ adapter.quote("transaction_amount") }}::float ,
         {{ adapter.quote("balance_after") }}::float ,
-        {{ adapter.quote("created_at") }}:text  ,
+        {{ adapter.quote("created_at") }}::text  ,
         {{ adapter.quote("updated_at") }}::text ,  ---Do dataset đang bị null dữ liệu
         {{ adapter.quote("description") }}::text ,
         {{ adapter.quote("teller_id") }}::text ,
